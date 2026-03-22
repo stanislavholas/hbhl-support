@@ -3,64 +3,451 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>HBHL – Podpora a Privacy Policy</title>
+    <title>HBHL – Požární sport</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet">
     <style>
+        :root {
+            --bg: #0a0a0a;
+            --surface: #141414;
+            --surface-elevated: #1c1c1e;
+            --border: #252525;
+            --border-subtle: #1e1e1e;
+            --text-primary: #f5f5f5;
+            --text-secondary: #a0a0a0;
+            --text-muted: #787878;
+            --accent: #ff9f0a;
+            --accent-dim: rgba(255, 159, 10, 0.12);
+            --blue: #0a84ff;
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+
         body {
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-            margin: 0;
-            padding: 0;
-            background-color: #f8f8f8;
-            color: #333;
+            font-family: 'DM Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+            background-color: var(--bg);
+            color: var(--text-secondary);
+            line-height: 1.65;
+            -webkit-font-smoothing: antialiased;
         }
-        header {
-            background-color: #007aff;
-            color: white;
-            padding: 2rem;
+
+        /* === HERO === */
+        .hero {
+            position: relative;
+            padding: 5rem 1.5rem 4rem;
             text-align: center;
+            overflow: hidden;
         }
+        .hero::before {
+            content: "";
+            position: absolute;
+            inset: 0;
+            background:
+                radial-gradient(ellipse 600px 400px at 50% 0%, rgba(255, 159, 10, 0.08) 0%, transparent 70%),
+                radial-gradient(ellipse 300px 300px at 80% 100%, rgba(10, 132, 255, 0.04) 0%, transparent 70%);
+            pointer-events: none;
+        }
+        .hero::after {
+            content: "";
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, var(--accent), transparent);
+            opacity: 0.4;
+        }
+
+        .hero-logo {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 4.5rem;
+            letter-spacing: 8px;
+            color: var(--text-primary);
+            line-height: 1;
+            margin-bottom: 0.75rem;
+            position: relative;
+        }
+        .hero-logo span {
+            color: var(--accent);
+            text-shadow: 0 0 40px rgba(255, 159, 10, 0.3);
+        }
+        .hero-tagline {
+            font-size: 0.85rem;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            color: var(--text-muted);
+            font-weight: 500;
+        }
+        .hero-tagline span {
+            color: var(--accent);
+            opacity: 0.5;
+            margin: 0 0.4rem;
+        }
+
+        /* === LAYOUT === */
         main {
-            max-width: 600px;
-            margin: 2rem auto;
-            background: white;
-            padding: 2rem;
-            border-radius: 8px;
-            box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+            max-width: 680px;
+            margin: 0 auto;
+            padding: 2.5rem 1.5rem 5rem;
         }
-        a {
-            color: #007aff;
-            text-decoration: none;
+
+        section {
+            margin-bottom: 3.5rem;
         }
-        a:hover {
-            text-decoration: underline;
+
+        /* === SECTION HEADERS === */
+        .section-label {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            margin-bottom: 1.5rem;
         }
-        h1, h2, h3 {
-            margin-top: 0;
+        .section-label h2 {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 1.1rem;
+            letter-spacing: 3px;
+            color: var(--accent);
+            white-space: nowrap;
         }
+        .section-label::after {
+            content: "";
+            flex: 1;
+            height: 1px;
+            background: linear-gradient(90deg, var(--border), transparent);
+        }
+
+        .section-label--blue h2 { color: var(--blue); }
+        .section-label--blue::after {
+            background: linear-gradient(90deg, rgba(10, 132, 255, 0.3), transparent);
+        }
+
+        /* === TYPOGRAPHY === */
+        h3 {
+            font-family: 'DM Sans', sans-serif;
+            font-size: 0.95rem;
+            font-weight: 700;
+            color: var(--text-primary);
+            margin-bottom: 0.5rem;
+            margin-top: 1.75rem;
+        }
+        h3:first-child { margin-top: 0; }
+
         p {
+            margin-bottom: 0.75rem;
+            font-size: 0.9rem;
+        }
+
+        a {
+            color: var(--blue);
+            text-decoration: none;
+            transition: color 0.2s;
+        }
+        a:hover { color: var(--accent); }
+
+        strong { color: var(--text-primary); font-weight: 600; }
+
+        /* === FEATURE GRID === */
+        .features {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 0.5rem;
+        }
+        @media (max-width: 480px) {
+            .features { grid-template-columns: 1fr; }
+        }
+        .feature {
+            display: flex;
+            align-items: center;
+            gap: 0.65rem;
+            padding: 0.7rem 0.85rem;
+            background: var(--surface);
+            border: 1px solid var(--border-subtle);
+            border-radius: 10px;
+            font-size: 0.82rem;
+            color: var(--text-secondary);
+            transition: border-color 0.2s, background 0.2s;
+        }
+        .feature:hover {
+            border-color: var(--border);
+            background: var(--surface-elevated);
+        }
+        .feature-dot {
+            width: 5px;
+            height: 5px;
+            border-radius: 50%;
+            background: var(--accent);
+            flex-shrink: 0;
+        }
+
+        /* === CARDS === */
+        .card {
+            background: var(--surface);
+            border: 1px solid var(--border-subtle);
+            border-radius: 14px;
+            padding: 1.5rem;
+            position: relative;
+            overflow: hidden;
+        }
+        .card::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, var(--border), transparent);
+        }
+
+        .version-card {
+            border-color: rgba(255, 159, 10, 0.15);
+        }
+        .version-card::before {
+            background: linear-gradient(90deg, transparent, var(--accent), transparent);
+            opacity: 0.3;
+        }
+
+        .version-tag {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.4rem;
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 0.9rem;
+            letter-spacing: 2px;
+            color: var(--accent);
+            background: var(--accent-dim);
+            padding: 0.25rem 0.75rem;
+            border-radius: 6px;
             margin-bottom: 1rem;
+        }
+        .version-tag::before {
+            content: "";
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+            background: var(--accent);
+            box-shadow: 0 0 8px var(--accent);
+        }
+
+        /* === LIST === */
+        .changelog-list {
+            list-style: none;
+            padding: 0;
+        }
+        .changelog-list li {
+            position: relative;
+            padding-left: 1rem;
+            margin-bottom: 0.4rem;
+            font-size: 0.88rem;
+            color: var(--text-secondary);
+        }
+        .changelog-list li::before {
+            content: "";
+            position: absolute;
+            left: 0;
+            top: 0.55rem;
+            width: 5px;
+            height: 5px;
+            border-radius: 50%;
+            background: var(--accent);
+            opacity: 0.6;
+        }
+
+        /* === CONTACT === */
+        .contact-card {
+            text-align: center;
+            padding: 2.5rem 1.5rem;
+        }
+        .contact-card p {
+            color: var(--text-muted);
+            margin-bottom: 1rem;
+            font-size: 0.88rem;
+        }
+        .contact-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 1rem;
+            font-weight: 600;
+            color: var(--accent);
+            padding: 0.6rem 1.5rem;
+            border: 1px solid rgba(255, 159, 10, 0.25);
+            border-radius: 10px;
+            background: var(--accent-dim);
+            transition: all 0.2s;
+        }
+        .contact-link:hover {
+            color: var(--accent);
+            background: rgba(255, 159, 10, 0.18);
+            border-color: rgba(255, 159, 10, 0.4);
+        }
+
+        /* === PRIVACY === */
+        .privacy-list {
+            list-style: none;
+            padding: 0;
+            margin: 0.75rem 0;
+        }
+        .privacy-list li {
+            padding: 0.75rem 1rem;
+            margin-bottom: 0.4rem;
+            background: var(--surface);
+            border: 1px solid var(--border-subtle);
+            border-radius: 10px;
+            font-size: 0.88rem;
+            color: var(--text-secondary);
+            line-height: 1.5;
+        }
+        .privacy-list li strong {
+            display: block;
+            margin-bottom: 0.15rem;
+            font-size: 0.82rem;
+            letter-spacing: 0.3px;
+        }
+
+        /* === FOOTER === */
+        footer {
+            text-align: center;
+            padding: 2rem 1.5rem;
+            border-top: 1px solid var(--border-subtle);
+            color: var(--text-muted);
+            font-size: 0.78rem;
+        }
+
+        /* === INTRO TEXT === */
+        .intro-text {
+            font-size: 0.95rem;
+            color: var(--text-secondary);
+            margin-bottom: 1.5rem;
+            line-height: 1.7;
+        }
+
+        .note {
+            font-size: 0.82rem;
+            color: var(--text-muted);
+            font-style: italic;
+            margin-top: 0.75rem;
+        }
+
+        .privacy-date {
+            font-size: 0.8rem;
+            color: var(--text-muted);
+            margin-bottom: 1.25rem;
+            letter-spacing: 0.3px;
         }
     </style>
 </head>
 <body>
-    <header>
-        <h1>HBHL – Podpora a Privacy Policy</h1>
+
+    <header class="hero">
+        <h1 class="hero-logo"><span>H</span>BHL</h1>
+        <div class="hero-tagline">
+            Požární sport
+            <span>/</span>
+            Výsledky
+            <span>/</span>
+            Žebříčky
+            <span>/</span>
+            Statistiky
+        </div>
     </header>
+
     <main>
-        <h2>Kontaktujte nás</h2>
-        <p>Máte dotaz nebo potřebujete pomoc s aplikací HBHL? Napište nám na e-mail:</p>
-        <p><a href="mailto:standaholas@seznam.cz">standaholas@seznam.cz</a></p>
 
-        <h2>FAQ a informace</h2>
-        <p>Pro časté dotazy doporučujeme zkontrolovat sekci FAQ přímo v aplikaci HBHL.</p>
+        <section>
+            <div class="section-label">
+                <h2>O aplikaci</h2>
+            </div>
+            <p class="intro-text">HBHL je aplikace pro sledování požárního sportu v regionu Havlíčkův Brod. Poskytuje přehled soutěží, výsledky, žebříčky, statistiky týmů a další.</p>
+            <div class="features">
+                <div class="feature"><div class="feature-dot"></div>Přehled soutěží a výsledky</div>
+                <div class="feature"><div class="feature-dot"></div>Startovní listiny</div>
+                <div class="feature"><div class="feature-dot"></div>Žebříček a body za sezónu</div>
+                <div class="feature"><div class="feature-dot"></div>Statistiky sezóny s grafy</div>
+                <div class="feature"><div class="feature-dot"></div>Statistiky týmů</div>
+                <div class="feature"><div class="feature-dot"></div>Oblíbené týmy</div>
+                <div class="feature"><div class="feature-dot"></div>Navigace na soutěž</div>
+                <div class="feature"><div class="feature-dot"></div>Push notifikace</div>
+                <div class="feature"><div class="feature-dot"></div>Čeština a angličtina</div>
+                <div class="feature"><div class="feature-dot"></div>Tmavý a světlý režim</div>
+            </div>
+        </section>
 
-        <h2>Changelog</h2>
-        <p>Všechny nové funkce a opravy chyb naleznete v changelogu v aplikaci.</p>
+        <section>
+            <div class="section-label">
+                <h2>Aktuální verze</h2>
+            </div>
+            <div class="card version-card">
+                <div class="version-tag">V2.0.2</div>
+                <ul class="changelog-list">
+                    <li>Statistiky týmu s grafy výkonnosti a historií výsledků</li>
+                    <li>Navigace na detail týmu z žebříčku</li>
+                </ul>
+            </div>
+            <p class="note">Kompletní přehled změn naleznete v changelogu přímo v aplikaci.</p>
+        </section>
 
-        <h2>Privacy Policy</h2>
-        <p><strong>Verze 1.0.0</strong></p>
-        <p>Aplikace HBHL neukládá žádná osobní data uživatelů. Data z aplikace nejsou sdílena ani ukládána mimo zařízení uživatele.</p>
-        <p>Aplikace přistupuje k internetu pouze pro získávání informací o soutěžích, výsledcích a bodování týmů. Nepřistupuje k žádným dalším zdrojům ani službám.</p>
-        <p>Žádná citlivá data nejsou zpracovávána.</p>
+        <section>
+            <div class="section-label section-label--blue">
+                <h2>FAQ</h2>
+            </div>
+            <p>Odpovědi na časté dotazy naleznete v sekci FAQ přímo v aplikaci HBHL. Pokrývá otázky o bodování, startovních listinách, oblíbených týmech a dalších funkcích.</p>
+        </section>
+
+        <section>
+            <div class="section-label">
+                <h2>Kontakt</h2>
+            </div>
+            <div class="card contact-card">
+                <p>Máte dotaz, návrh nebo jste našli chybu?</p>
+                <a href="mailto:standaholas@seznam.cz" class="contact-link">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg>
+                    standaholas@seznam.cz
+                </a>
+            </div>
+        </section>
+
+        <section>
+            <div class="section-label">
+                <h2>Zásady ochrany osobních údajů</h2>
+            </div>
+            <p class="privacy-date">Poslední aktualizace: 22. března 2026</p>
+
+            <h3>Jaká data shromažďujeme</h3>
+            <p>Aplikace HBHL neukládá žádná osobní data uživatelů. Oblíbené týmy a nastavení aplikace (jazyk, vzhled, sezóna) jsou uloženy lokálně na vašem zařízení a nejsou sdíleny s třetími stranami.</p>
+
+            <h3>Analytika a diagnostika</h3>
+            <p>Aplikace využívá služby Firebase od společnosti Google:</p>
+            <ul class="privacy-list">
+                <li>
+                    <strong>Firebase Analytics</strong>
+                    Anonymní statistiky používání aplikace. Data jsou anonymizována a nelze je přiřadit ke konkrétní osobě.
+                </li>
+                <li>
+                    <strong>Firebase Crashlytics</strong>
+                    Automatické hlášení pádů aplikace pro zlepšení stability. Hlášení obsahují technické informace o zařízení, nikoliv osobní data.
+                </li>
+                <li>
+                    <strong>Firebase Cloud Messaging</strong>
+                    Doručování push notifikací. Pro tento účel je generován anonymní token zařízení.
+                </li>
+            </ul>
+
+            <h3>Přístup k internetu</h3>
+            <p>Aplikace přistupuje k internetu pro získávání informací o soutěžích, výsledcích, žebříčcích, statistikách a bodování týmů z vlastního serveru. Dále komunikuje se službami Firebase pro výše uvedené účely.</p>
+
+            <h3>Data třetích stran</h3>
+            <p>Při použití funkce navigace na soutěž je uživatel přesměrován do externí mapové aplikace (Apple Maps, Google Maps nebo Waze). Aplikace HBHL nepředává těmto službám žádná osobní data. Sdíleny jsou pouze souřadnice cílového místa.</p>
+
+            <h3>Vaše práva</h3>
+            <p>Máte právo na přístup ke svým údajům, jejich opravu či vymazání. Pro uplatnění svých práv nebo dotazy ohledně ochrany osobních údajů nás kontaktujte na <a href="mailto:standaholas@seznam.cz">standaholas@seznam.cz</a>.</p>
+        </section>
+
     </main>
+
+    <footer>
+        &copy; 2026 Stanislav Holas
+    </footer>
+
 </body>
 </html>
